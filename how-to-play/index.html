@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Play Blackjack – Blackjack With Strategy</title>
+  <style>
+    :root { --fg:#1f2937; --muted:#6b7280; --accent:#111827; --bg:#ffffff; --card:#f9fafb; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    header {
+      padding: 28px 16px;
+      background: var(--card);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+    h1 { margin: 0 0 6px; font-size: 28px; line-height: 1.2; color: var(--accent); }
+    .subtitle { color: var(--muted); margin: 0 0 6px; }
+    nav.toc {
+      margin-top: 16px; padding: 12px 14px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+    }
+    nav.toc a { color: #0f766e; text-decoration: none; }
+    main { padding: 28px 16px 48px; }
+    h2 { margin-top: 28px; font-size: 22px; line-height: 1.3; }
+    h3 { margin-top: 20px; font-size: 18px; }
+    ul, ol { padding-left: 22px; }
+    .note, .tip {
+      border-left: 4px solid #0ea5e9;
+      background: #f0f9ff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin: 14px 0;
+      color: #0b3b53;
+    }
+    .tip { border-left-color: #22c55e; background: #f0fff7; color: #0f3d25; }
+    footer {
+      border-top: 1px solid #e5e7eb; background: var(--card);
+      padding: 18px 16px; color: var(--muted); font-size: 14px;
+    }
+    a { color: #0ea5e9; }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg:#e5e7eb; --muted:#9ca3af; --accent:#f3f4f6; --bg:#0b0f14; --card:#0f172a; }
+      body { background: var(--bg); color: var(--fg); }
+      header, footer { border-color: #1f2937; }
+      nav.toc { background:#0b0f14; border-color:#1f2937; }
+      a { color:#38bdf8; }
+      .note { background:#072332; color:#cdefff; border-left-color:#38bdf8; }
+      .tip { background:#072a1c; color:#d9ffe8; border-left-color:#22c55e; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>How to Play Blackjack</h1>
+      <p class="subtitle">A quick, beginner-friendly guide for <em>Blackjack With Strategy</em></p>
+      <nav class="toc">
+        <strong>On this page:</strong>
+        <ul>
+          <li><a href="#objective">Objective</a></li>
+          <li><a href="#card-values">Card Values</a></li>
+          <li><a href="#how-the-game-starts">How the Game Starts</a></li>
+          <li><a href="#your-turn">Your Turn (Actions)</a></li>
+          <li><a href="#busts">When You Bust</a></li>
+          <li><a href="#dealer-turn">Dealer’s Turn</a></li>
+          <li><a href="#winning">Winning</a></li>
+          <li><a href="#blackjack">What Counts as a Blackjack</a></li>
+          <li><a href="#insurance">Insurance (What it is & when it shows)</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="objective">
+      <h2>Objective</h2>
+      <p>Get a hand total closer to <strong>21</strong> than the dealer without going over.</p>
+    </section>
+
+    <section id="card-values">
+      <h2>Card Values</h2>
+      <ul>
+        <li><strong>2–10</strong> = face value</li>
+        <li><strong>J, Q, K</strong> = 10 points</li>
+        <li><strong>Ace (A)</strong> = 1 or 11 (whichever helps you more)</li>
+      </ul>
+    </section>
+
+    <section id="how-the-game-starts">
+      <h2>How the Game Starts</h2>
+      <ol>
+        <li>You and the dealer are each dealt <strong>two cards</strong></li>
+        <li>One dealer card is face up, the other is face down.</li>
+        <li>Typically is it 1 card to player(s) first, then 1 card to dealer. Repeated - second card to player(s) then finally second *faced down* card to dealer.</li>
+      </ol>
+    </section>
+
+    <section id="your-turn">
+      <h2>Your Turn (Actions)</h2>
+      <ul>
+        <li><strong>Hit</strong> – Take another card.</li>
+        <li><strong>Stand</strong> – Keep your current total.</li>
+        <li><strong>Double Down</strong> – Double your bet, take one card, then stand. In this game it is done automatically when you press Double</li>
+        <li><strong>Split</strong> – If your first two cards are the same value, you can split into two hands and play each separately. this means you have to place the original bet down again to split the hands. (each hand has the same bet) in this game it is done automatically when you press split.</li>
+      </ul>
+
+      <h3>Splitting Aces</h3>
+<ul>
+  <li>If you start with two Aces, you can split them into two separate hands.</li>
+  <li>Each Ace becomes the first card in its own hand, and you place an extra bet equal to your original bet.</li>
+</ul>
+<h4>In Most Blackjack Games:</h4>
+<ul>
+  <li>You only get <strong>one additional card per split Ace</strong>. no hitting again.</li>
+  <li>If that card makes 21, it counts as <strong>21</strong> but not a blackjack, because it is a split hand.</li>
+</ul>
+<h4>In This Game:</h4>
+<ul>
+  <li>You can toggle a setting to allow or disallow splitting Aces.</li>
+  <li><strong>If OFF:</strong> you cannot split Aces.</li>
+  <li><strong>If ON:</strong> you can split Aces, and one card is dealt to each hand.</li>
+</ul>
+    </section>
+
+    <section id="busts">
+      <h2>When You Bust</h2>
+      <p>If your total goes over <strong>21</strong>, you lose automatically.</p>
+    </section>
+
+    <section id="dealer-turn">
+      <h2>Dealer’s Turn</h2>
+      <ul>
+        <li>The dealer flips their hidden card.</li>
+        <li>The dealer <strong>must hit until 17+</strong>. In this game,  <strong>you can adjust if the dealer should stand or hit on a soft 17 in the settings.</strong>.</li>
+      </ul>
+    </section>
+
+    <section id="winning">
+      <h2>Winning</h2>
+      <ul>
+        <li>If your total is higher than the dealer’s without going over 21, you win.</li>
+        <li>If the dealer busts and you didn’t, you win.</li>
+        <li>A tie (same total) is a <strong>Push</strong> meaning you keep your bet.</li>
+      </ul>
+    </section>
+
+    <section id="blackjack">
+      <h2>What Counts as a Blackjack</h2>
+      <p><strong>Blackjack</strong> is <em>only</em> when your first two cards total exactly <strong>21</strong> (Ace + a 10-value card).</p>
+      <div class="note"><strong>Important:</strong> A total of 21 made from <em>three or more cards</em> is still a great hand, but it is <strong>not</strong> a blackjack and doesn’t get the blackjack payout.</div>
+    </section>
+
+    <section id="insurance">
+      <h2>Insurance (What it is &amp; when it shows)</h2>
+      <ul>
+        <li>If the dealer’s face up card is an <strong>Ace</strong>, the game offers <strong>Insurance</strong>.</li>
+        <li>Insurance is a side bet that the dealer’s hidden card is a 10-value card (meaning they have blackjack). If you think the dealer has a Blackjack you accept insurance (in this game it is 'Yes'), if you think the dealer does <strong>NOT</strong> have a Blackjack you decline (in this game it is 'No') . </li>
+        <li>Insurance costs <strong>half</strong> your original bet.</li>
+        <li>If you selected 'Yes' and the dealer has blackjack, insurance pays <strong>2:1</strong> meaning you break even by getting the money you bet, back.</li>
+        <li>If you selected 'Yes' and the dealer does not have blackjack, you lose the insurance bet and the round continues normally.</li>
+        <li>If you selected 'No' and the dealer does not have blackjack, the round continues normally.</li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Many players skip insurance unless they are counting cards. it’s usually not in your favor long-term.</div>
+    </section>
+
+    <p class="subtitle" style="margin-top:32px;">Last updated: August 2025</p>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Blackjack With Strategy</span>
+      <span style="float:right;">
+        <a href="/support">Support</a> ·
+        <a href="/privacy">Privacy</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
