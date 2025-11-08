@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Devolv Logo - Dark Version</title>
+  <desc id="desc">White hexagon loop icon and wordmark on black background.</desc>
+
+  <rect width="100%" height="100%" fill="black"/>
+
+  <!-- Icon -->
+  <g id="icon" transform="translate(10,10)">
+    <path d="M28 0 L68 0 L88 32 L68 64 L28 64 L8 32 Z"
+          stroke="white" stroke-width="6" fill="none" stroke-linejoin="miter" />
+  </g>
+
+  <!-- Wordmark -->
+  <g id="wordmark" transform="translate(120,18)">
+    <text x="0" y="54"
+      font-family="Sora, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+      font-weight="600"
+      font-size="54"
+      fill="white">Devolv</text>
+  </g>
+</svg>
