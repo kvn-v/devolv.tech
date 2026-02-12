@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ZoneMobile Invite</title>
+    <style>
+      body { font-family: -apple-system, system-ui, sans-serif; padding: 24px; line-height: 1.4; }
+      .btn { display:inline-block; padding:12px 16px; border-radius:10px; border:1px solid #ddd; text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <h2>Open ZoneMobile</h2>
+    <p>If ZoneMobile didn’t open automatically, tap below.</p>
+
+    <p>
+      <a id="openBtn" class="btn" href="#">Open the app</a>
+    </p>
+
+    <p id="code" style="opacity:.7"></p>
+
+    <script>
+      // URL is like /i/INVITEID
+      const invite = location.pathname.split("/").filter(Boolean)[1] || "";
+      document.getElementById("code").textContent = invite ? `Invite code: ${invite}` : "";
+
+      // Try deep link (helpful for some Android cases / edge cases)
+      const deep = `zonemobile:///signup?invite=${encodeURIComponent(invite)}`;
+      document.getElementById("openBtn").href = deep;
+
+      // Optional: auto-attempt open
+      if (invite) {
+        window.location.href = deep;
+      }
+    </script>
+  </body>
+</html>
