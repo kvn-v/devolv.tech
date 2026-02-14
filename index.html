@@ -162,6 +162,24 @@
     }
     
     .muted{ color:var(--muted); }
+
+    .card-link{
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+
+.card-link .card{
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  cursor:pointer;
+}
+
+.card-link:hover .card{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.10);
+  border-color: rgba(37,99,235,.35);
+}
+
     
     footer{
       margin-top:56px;
@@ -369,17 +387,24 @@
     <section style="margin-top:40px">
       <h2 style="font-size:1.6rem; margin-bottom:20px">Our Products</h2>
       <div class="cols">
-        <div class="card mini">
-          <h3>Blackjack With Strategy</h3>
-          <p class="muted">
-            A card strategy and simulation game that lets players practice blackjack decision-making.
-            <div>Published by <strong>Devolv LLC</strong>. 
-              <div>
-            <em>No real-money gambling. Entertainment only.</em>
+        <a href="https://apps.apple.com/us/app/blackjack-with-strategy/id6751148964" class="card-link">
+          <div class="card mini">
+            <h3>Blackjack With Strategy</h3>
+            <p class="muted" style="margin-top:12px; font-weight:600;">
+              View on the App Store →
+            </p>
+            
+            <p class="muted">
+              A card strategy and simulation game that lets players practice blackjack decision-making.
+            </p>
+        
+            <p class="muted">
+              Published by <strong>Devolv LLC</strong>.<br/>
+              <em>No real-money gambling. Entertainment only.</em>
+            </p>
           </div>
-            </div>
-          </p>
-        </div>
+        </a>
+        
         <!-- Add more apps here in the future -->
       </div>
     </section>
