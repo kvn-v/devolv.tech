@@ -78,6 +78,31 @@ body{
   line-height:1.6;
 }
 
+@media (max-width: 860px){
+  .hero{
+    grid-template-columns: 1fr;
+  }
+  header{
+    align-items:flex-start;
+  }
+  .nav a{
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px){
+  .hero h2{
+    font-size: 2.1rem;
+    line-height: 1.05;
+  }
+  .hero .card{
+    padding: 22px;
+  }
+  .wrap{
+    padding: 14px 16px;
+  }
+}
 
 
     
@@ -146,10 +171,7 @@ body{
 }
 
 /* make the right card feel “lighter” */
-.card.subtle{
-  background: rgba(255,255,255,.75);
-  backdrop-filter: blur(8px);
-}
+/*  */
 
     
     .badges{
