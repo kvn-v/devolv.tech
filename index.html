@@ -407,12 +407,20 @@ body{
     grid-template-columns: 1fr;
   }
   header{
-    align-items:flex-start;
+    align-items: center;
   }
+  .nav{
+    display:flex;
+    align-items:center;
+  }
+
   .nav a{
+    padding: 6px 8px;
+  }
+  /* .nav a{
     margin-left: 0;
     margin-right: 10px;
-  }
+  } */
 }
 
 @media (max-width: 480px){
@@ -429,7 +437,7 @@ body{
 }
 @media (max-width: 480px){
   header img{
-    width: 170px; /* or 160 */
+    width: 165px; /* or 160 */
     height: auto;
   }
 }
