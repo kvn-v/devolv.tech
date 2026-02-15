@@ -193,6 +193,129 @@
       justify-content:space-between;
       align-items:center;
     }
+
+    /* --- Products --- */
+.section-title{
+  font-size: 1.4rem;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.02em;
+}
+
+.section-sub{
+  margin: 0 0 22px 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.products{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+}
+
+@media (max-width: 960px){
+  .products{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+  .products{ grid-template-columns: 1fr; }
+}
+
+.product-link{
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+
+.product-card{
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding:22px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.product-link:hover .product-card{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0,0,0,.10);
+  border-color: rgba(37,99,235,.35);
+}
+
+.product-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.product-icon{
+  width:44px;
+  height:44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(37,99,235,.22), rgba(37,99,235,.06));
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+
+.product-icon img{
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.product-name{
+  margin:0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.product-meta{
+  margin:0;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.55;
+}
+
+.product-footer{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding-top: 6px;
+}
+
+.pill{
+  font-size:.78rem;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#f1f5f9;
+  color: var(--muted);
+}
+
+.store-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight: 650;
+  font-size: .92rem;
+  color: var(--accent);
+}
+
+.store-btn svg{
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+}
+
+
     </style>
     
 
@@ -384,7 +507,57 @@
       </div>
     </section>
 
-    <section style="margin-top:40px">
+    <section style="margin-top:44px">
+      <h2 class="section-title">Our Products</h2>
+      <p class="section-sub">
+        Apps and interactive experiences published by <strong>Devolv LLC</strong>.
+      </p>
+    
+      <div class="products">
+        <!-- PRODUCT 1 -->
+        <a
+          class="product-link"
+          href="https://apps.apple.com/us/app/blackjack-with-strategy/id6751148964"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Download Blackjack With Strategy on the App Store"
+        >
+          <div class="product-card">
+            <div class="product-top">
+              <div class="product-icon" aria-hidden="true">
+                <!-- Optional: swap with your real app icon -->
+                <img src="/assets/120.png" alt="" />
+              </div>
+              <div>
+                <h3 class="product-name">Blackjack With Strategy</h3>
+                <p class="product-meta">A focused blackjack training and decision practice game.</p>
+              </div>
+            </div>
+    
+            <p class="product-meta">
+              Entertainment only — no real-money gambling.
+            </p>
+    
+            <div class="product-footer">
+              <span class="pill">iOS • App Store</span>
+    
+              <span class="store-btn" aria-hidden="true">
+                View on App Store
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+    
+        <!-- Add more product cards by copying the block above -->
+      </div>
+    </section>
+    
+
+    <!-- <section style="margin-top:40px">
       <h2 style="font-size:1.6rem; margin-bottom:20px">Our Products</h2>
       <div class="cols">
         <a href="https://apps.apple.com/us/app/blackjack-with-strategy/id6751148964" class="card-link">
@@ -407,7 +580,7 @@
         
         <!-- Add more apps here in the future -->
       </div>
-    </section>
+    </section> -->
     
 
     <footer>
