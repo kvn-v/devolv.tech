@@ -858,5 +858,52 @@ body{
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!mq.matches || reduce.matches) return;
+  
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+  
+    const cards = hero.querySelectorAll(".card");
+    if (cards.length < 2) return;
+  
+    const first = cards[0];
+    const second = cards[1];
+  
+    let raf = null;
+  
+    function update() {
+      raf = null;
+  
+      const rect = hero.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+  
+      const start = vh * 0.85;
+      const end   = vh * 0.20;
+      const t = (start - rect.top) / (start - end);
+      const p = Math.max(0, Math.min(1, t));
+  
+      const ease = p * (2 - p);
+  
+      const move = ease * 60;   // stronger so you can see it
+      first.style.transform  = `translateX(${move}px)`;
+      second.style.transform = `translateX(${-move}px)`;
+    }
+  
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    }
+  
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+  </script>
+  
 </body>
 </html>
