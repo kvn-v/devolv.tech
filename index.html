@@ -243,13 +243,6 @@ body{
   gap:20px;
 }
 
-@media (max-width: 960px){
-  .products{ grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 640px){
-  .products{ grid-template-columns: 1fr; }
-}
-
 .product-link{
   text-decoration:none;
   color:inherit;
@@ -365,6 +358,12 @@ body{
 }
 .signal .chip strong{ color: var(--text); }
 
+@media (max-width: 960px){
+  .products{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+  .products{ grid-template-columns: 1fr; }
+}
 
 @media (max-width: 860px){
   .hero{
