@@ -330,6 +330,10 @@ body{
   color: var(--muted);
   white-space: nowrap;
 }
+.pill.disabled{
+  opacity: .5;
+  pointer-events: none;
+}
 
 .store-btn{
   display:inline-flex;
@@ -697,13 +701,7 @@ body{
           
 
         <!-- PRODUCT 2 -->
-        <a
-        class="product-link"
-        href="https://apps.apple.com/us/app/zone-mobile/id6759078843"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Download ZoneMobile on the App Store"
-        >
+        
         <div class="product-card">
           <div class="product-top">
             <div class="product-icon" aria-hidden="true">
@@ -716,7 +714,13 @@ body{
           </div>
 
           <p class="product-meta">Tracking time without extra steps.</p>
-
+          <a
+        class="product-link"
+        href="https://apps.apple.com/us/app/zone-mobile/id6759078843"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download ZoneMobile on the App Store"
+        >
           <div class="product-footer">
             <span class="pill">iOS • App Store</span>
 
@@ -728,9 +732,17 @@ body{
               </svg>
             </span>
           </div>
+          </a>
 
           <!-- <div class="product-footer"> -->
-            <span class="pill">Android • Coming Soon</span>
+            <span class="pill disabled">Android • Coming Soon</span>
+            <span class="store-btn" aria-hidden="true"></span>
+              View on Google Play Store
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
           <!-- </div> -->
         </div>
         </a>
