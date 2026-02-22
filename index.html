@@ -260,6 +260,8 @@ body{
   border:1px solid var(--border);
   box-shadow: var(--shadow);
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .product-link:hover .product-card{
@@ -313,9 +315,10 @@ body{
   margin-top:auto;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-start;
   gap:10px;
   padding-top: 6px;
+  flex-wrap: wrap;
 }
 
 .pill{
@@ -325,6 +328,7 @@ body{
   border:1px solid var(--border);
   background:rgba(255,255,255,.06);
   color: var(--muted);
+  white-space: nowrap;
 }
 
 .store-btn{
@@ -671,46 +675,46 @@ body{
           </div>
         </a>
 
-          <!-- PRODUCT 2 -->
+          
 
         <!-- PRODUCT 2 -->
-<a
-class="product-link"
-href="https://apps.apple.com/us/app/zone-mobile/id6759078843"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="Download ZoneMobile on the App Store"
->
-<div class="product-card">
-  <div class="product-top">
-    <div class="product-icon" aria-hidden="true">
-      <img src="/assets/ZMicon.png" alt="" />
-    </div>
-    <div>
-      <h3 class="product-name">ZoneMobile</h3>
-      <p class="product-meta">Time tracking that stays simple.</p>
-    </div>
-  </div>
+        <a
+        class="product-link"
+        href="https://apps.apple.com/us/app/zone-mobile/id6759078843"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download ZoneMobile on the App Store"
+        >
+        <div class="product-card">
+          <div class="product-top">
+            <div class="product-icon" aria-hidden="true">
+              <img src="/assets/ZMicon.png" alt="" />
+            </div>
+            <div>
+              <h3 class="product-name">ZoneMobile</h3>
+              <p class="product-meta">Time tracking that stays simple.</p>
+            </div>
+          </div>
 
-  <p class="product-meta">Tracking time without extra steps.</p>
+          <p class="product-meta">Tracking time without extra steps.</p>
 
-  <div class="product-footer">
-    <span class="pill">iOS • App Store</span>
+          <div class="product-footer">
+            <span class="pill">iOS • App Store</span>
 
-    <span class="store-btn" aria-hidden="true">
-      View on App Store
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </span>
-  </div>
+            <span class="store-btn" aria-hidden="true">
+              View on App Store
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
 
-  <div class="product-footer">
-    <span class="pill">Android • Coming Soon</span>
-  </div>
-</div>
-</a>
+          <div class="product-footer">
+            <span class="pill">Android • Coming Soon</span>
+          </div>
+        </div>
+        </a>
     
         <!-- Add more product cards by copying the block above -->
       
