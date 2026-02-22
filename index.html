@@ -451,6 +451,41 @@ body{
     padding-bottom: 10px;
   }
 }
+
+/* --- Mobile swipe carousel for product cards --- */
+@media (max-width: 640px){
+  .products{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: visible;
+    gap: 16px;
+    padding: 6px 6px 18px;
+    margin: 0 -6px;                 /* lets cards breathe edge-to-edge */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar (still scrollable) */
+  .products::-webkit-scrollbar{ display:none; }
+  .products{ scrollbar-width: none; }
+
+  /* Each card becomes a “slide” */
+  .products > .product-link,
+  .products > .product-card{
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+
+  /* If your cards are inside <a class="product-link"> ... */
+  .product-link{ display:block; }
+
+  /* motion defaults */
+  .product-card{
+    transform: translateZ(0);
+    transition: transform 220ms ease, opacity 220ms ease;
+    will-change: transform, opacity;
+  }
+}
     </style>
 
     
@@ -569,6 +604,58 @@ body{
     .legal{ opacity:.9 }
   </style> -->
 </head>
+
+<script>
+  (function () {
+    const rail = document.querySelector(".products");
+    if (!rail) return;
+
+    // only run on mobile-ish/touch contexts
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (!isTouch) return;
+
+    const cards = Array.from(rail.querySelectorAll(".product-card"));
+    if (!cards.length) return;
+
+    function update() {
+      const railRect = rail.getBoundingClientRect();
+      const centerX = railRect.left + railRect.width / 2;
+
+      cards.forEach((card) => {
+        const r = card.getBoundingClientRect();
+        const cardCenter = r.left + r.width / 2;
+
+        const dist = (cardCenter - centerX) / railRect.width; // ~ -0.5..0.5
+        const abs = Math.min(1, Math.abs(dist) * 2);          // 0..1
+
+        // tweak these numbers for vibe
+        const scale = 1 - abs * 0.06;                         // 1 -> 0.94
+        const tilt  = dist * 6;                               // degrees
+        const fade  = 1 - abs * 0.35;                         // 1 -> 0.65
+
+        card.style.transform = `perspective(900px) rotateY(${tilt}deg) scale(${scale})`;
+        card.style.opacity = fade.toFixed(3);
+      });
+    }
+
+    // smooth + efficient
+    let raf = null;
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        update();
+      });
+    }
+
+    rail.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
+
+
+
 <body>
   <div class="wrap">
     <header>
