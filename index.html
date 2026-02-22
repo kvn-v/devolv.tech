@@ -502,9 +502,13 @@ body{
   transition: transform .15s linear;
   will-change: transform;
 }
+}
 
-
-
+@media (max-width: 860px){
+  .hero-desc, .hero-about{
+    will-change: transform;
+    transition: transform 80ms linear; /* small smoothing */
+  }
 }
     </style>
 
@@ -624,7 +628,7 @@ body{
     .legal{ opacity:.9 }
   </style> -->
 </head>
-
+<!-- 
 <script>
   (function () {
     const rail = document.querySelector(".products");
@@ -705,8 +709,51 @@ body{
     update();
   
   })();
-  </script>
+  </script> -->
 
+  <script>
+    (function () {
+      const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      if (!isTouch) return;
+    
+      const hero = document.querySelector(".hero");
+      const left = document.querySelector(".hero-about");
+      const right = document.querySelector(".hero-desc");
+      if (!hero || !left || !right) return;
+    
+      let raf = null;
+    
+      function update(){
+        const rect = hero.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+    
+        // progress: 0 when hero is just entering view, 1 when it's mostly passed
+        const start = vh * 0.10;
+        const end   = vh * 0.70;
+        const t = (start - rect.top) / (end - start);
+        const p = Math.min(1, Math.max(0, t));
+    
+        // change 22 -> 14 if you want subtler
+        const amount = p * 22;
+    
+        // description goes right, about goes left
+        right.style.transform = `translateX(${amount}px)`;
+        left.style.transform  = `translateX(${-amount}px)`;
+      }
+    
+      function onScroll(){
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          update();
+        });
+      }
+    
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+    </script>
 
 <body>
   <div class="wrap">
@@ -723,23 +770,25 @@ body{
     </header>
 
     <section class="hero">
-      <div class="card">
-        <div class="badges">
-          <span class="badge">Apple • App Store</span>
-          <span class="badge">Software Publisher</span>
-          <span class="badge">Google Play</span>
-        </div>
-        <h2>We build and publish mobile apps & interactive games.</h2>
-        <p>
-          <strong>Devolv LLC</strong> is a registered software development company focused on
-          designing, developing, and publishing mobile applications and other software for iOS and other platforms.
-          We operate under the Devolv name across our products and services.
-        </p>
-        <div class="cta">
-          <a class="btn primary" href="https://devolv.tech/support">Visit Support Portal</a>
-          <a class="btn secondary" href="mailto:support@devolv.tech">Email Us</a>
-        </div>
+      <div class="card hero-desc"></div>
+        <div class="card">
+          <div class="badges">
+            <span class="badge">Apple • App Store</span>
+            <span class="badge">Software Publisher</span>
+            <span class="badge">Google Play</span>
+          </div>
+          <h2>We build and publish mobile apps & interactive games.</h2>
+          <p>
+            <strong>Devolv LLC</strong> is a registered software development company focused on
+            designing, developing, and publishing mobile applications and other software for iOS and other platforms.
+            We operate under the Devolv name across our products and services.
+          </p>
+          <div class="cta">
+            <a class="btn primary" href="https://devolv.tech/support">Visit Support Portal</a>
+            <a class="btn secondary" href="mailto:support@devolv.tech">Email Us</a>
+          </div>
       </div>
+    </div>
 
       <div class="card subtle" role="complementary" aria-label="Company snapshot">
 
@@ -766,6 +815,7 @@ body{
           <p class="muted">For customer support, documentation, and updates, use our <a href="https://devolv.tech/support" class="muted">Support Portal</a>.</p>
         </div>
       </div>
+    </div>
     </section>
 
     <!-- <section style="margin-top:28px">
