@@ -423,7 +423,14 @@ body{
     justify-content: flex-start;
   }
 }
-
+@media (hover: none) and (pointer: coarse){
+  .product-link:hover .product-card,
+  .card-link:hover .card{
+    transform: none !important;
+    box-shadow: var(--shadow) !important;
+    border-color: var(--border) !important;
+  }
+}
     </style>
 
     
