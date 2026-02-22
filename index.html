@@ -486,6 +486,25 @@ body{
     will-change: transform, opacity;
   }
 }
+
+@media (max-width: 860px){
+
+.hero{
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* First card */
+.hero .card:first-child{
+  transform: translateX(10px);
+}
+
+/* Second card */
+.hero .card:last-child{
+  transform: translateX(-10px);
+}
+
+}
     </style>
 
     
@@ -652,6 +671,8 @@ body{
     window.addEventListener("resize", update);
     update();
   })();
+
+  
 </script>
 
 
