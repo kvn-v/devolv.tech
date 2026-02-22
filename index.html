@@ -498,17 +498,9 @@ body{
   grid-template-columns: 1fr;
   gap: 18px;
 }
-.hero .card{
-  transition: transform .15s linear;
-  will-change: transform;
-}
-}
 
-@media (max-width: 860px){
-  .hero-desc, .hero-about{
-    will-change: transform;
-    transition: transform 80ms linear; /* small smoothing */
-  }
+
+
 }
     </style>
 
@@ -628,7 +620,7 @@ body{
     .legal{ opacity:.9 }
   </style> -->
 </head>
-<!-- 
+
 <script>
   (function () {
     const rail = document.querySelector(".products");
@@ -681,85 +673,8 @@ body{
 </script>
 
 
-<script>
-  (function () {
-  
-    const isMobile = window.matchMedia("(max-width: 860px)").matches;
-    if (!isMobile) return;
-  
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-  
-    const cards = hero.querySelectorAll(".card");
-    if (cards.length < 2) return;
-  
-    const first = cards[0];
-    const second = cards[1];
-  
-    function update() {
-      const rect = hero.getBoundingClientRect();
-      const scrollProgress = Math.min(1, Math.max(0, -rect.top / 400));
-      const amount = scrollProgress * 20; // max movement in px
-  
-      first.style.transform = `translateX(${amount}px)`;
-      second.style.transform = `translateX(-${amount}px)`;
-    }
-  
-    window.addEventListener("scroll", update, { passive: true });
-    update();
-  
-  })();
-  </script> -->
 
-  <script>
-    (function () {
-      const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-      if (!isTouch) return;
-    
-      const hero = document.querySelector(".hero");
-      const left = document.querySelector(".hero-about");
-      const right = document.querySelector(".hero-desc");
-      const fade = 1 - p * 0.12; // 1 -> 0.88
-      right.style.opacity = fade;
-      left.style.opacity = fade;
-      if (!hero || !left || !right) return;
-    
-      let raf = null;
-    
-      function update(){
-        const rect = hero.getBoundingClientRect();
-        const vh = window.innerHeight || 800;
-    
-        const start = vh * 0.10;
-        const end   = vh * 0.70;
-        const t = (start - rect.top) / (end - start);
-        const p = Math.min(1, Math.max(0, t));
-    
-        // ---- tweak these two numbers for your vibe ----
-        const peek = 18; // how much of the card should remain visible
-        const maxShift = Math.min(80, Math.max(40, window.innerWidth * 0.18)); // overall travel
-        // ------------------------------------------------
-    
-        // shift outward, but don't fully disappear (leave a "peek")
-        const amount = Math.max(0, (p * maxShift) - peek);
-    
-        right.style.transform = `translateX(${amount}px)`;
-        left.style.transform  = `translateX(-${amount}px)`;
-      }
-    
-      function onScroll(){
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          raf = null;
-          update();
-        });
-      }
-    
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", update);
-      update();
-    })();
-    </script>
+
 
 <body>
   <div class="wrap">
@@ -776,25 +691,23 @@ body{
     </header>
 
     <section class="hero">
-      <div class="card hero-desc"></div>
-        <div class="card">
-          <div class="badges">
-            <span class="badge">Apple • App Store</span>
-            <span class="badge">Software Publisher</span>
-            <span class="badge">Google Play</span>
-          </div>
-          <h2>We build and publish mobile apps & interactive games.</h2>
-          <p>
-            <strong>Devolv LLC</strong> is a registered software development company focused on
-            designing, developing, and publishing mobile applications and other software for iOS and other platforms.
-            We operate under the Devolv name across our products and services.
-          </p>
-          <div class="cta">
-            <a class="btn primary" href="https://devolv.tech/support">Visit Support Portal</a>
-            <a class="btn secondary" href="mailto:support@devolv.tech">Email Us</a>
-          </div>
+      <div class="card">
+        <div class="badges">
+          <span class="badge">Apple • App Store</span>
+          <span class="badge">Software Publisher</span>
+          <span class="badge">Google Play</span>
+        </div>
+        <h2>We build and publish mobile apps & interactive games.</h2>
+        <p>
+          <strong>Devolv LLC</strong> is a registered software development company focused on
+          designing, developing, and publishing mobile applications and other software for iOS and other platforms.
+          We operate under the Devolv name across our products and services.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="https://devolv.tech/support">Visit Support Portal</a>
+          <a class="btn secondary" href="mailto:support@devolv.tech">Email Us</a>
+        </div>
       </div>
-    </div>
 
       <div class="card subtle" role="complementary" aria-label="Company snapshot">
 
@@ -821,7 +734,6 @@ body{
           <p class="muted">For customer support, documentation, and updates, use our <a href="https://devolv.tech/support" class="muted">Support Portal</a>.</p>
         </div>
       </div>
-    </div>
     </section>
 
     <!-- <section style="margin-top:28px">
