@@ -467,44 +467,24 @@ body{
 /* --- Mobile swipe carousel for product cards --- */
 @media (max-width: 640px){
   .products{
-    display: flex;
-    overflow-x: auto;
-    overflow-y: visible;
-    gap: 16px;
-    padding: 6px 6px 18px;
-    margin: 0 -6px;                 /* lets cards breathe edge-to-edge */
+    display:flex;
+    overflow-x:auto;
+    gap:16px;
+    padding: 6px 16px 18px;
+    margin: 0 -16px;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
     -webkit-overflow-scrolling: touch;
-    
   }
 
   .products > *{
-    flex: 0 0 88%;              /* peek */
-    scroll-snap-align: start;    /* first card shows next peeking */
+    flex: 0 0 88%;
+    scroll-snap-align: start;
   }
 
-  /* Hide scrollbar (still scrollable) */
   .products::-webkit-scrollbar{ display:none; }
-  .products{ scrollbar-width: none; }
-
-  /* Each card becomes a “slide” */
-  .products > .product-link,
-  .products > .product-card{
-    flex: 0 0 85%;
-    scroll-snap-align: center;
-  }
-
-  /* If your cards are inside <a class="product-link"> ... */
-  .product-link{ display:block; }
-
-  /* motion defaults */
-  .product-card{
-    transform: translateZ(0);
-    transition: transform 220ms ease, opacity 220ms ease;
-    will-change: transform, opacity;
-  }
+  .products{ scrollbar-width:none; }
 }
-
 
 
 @media (max-width: 860px){
@@ -904,6 +884,6 @@ body{
     update();
   });
   </script>
-  
+
 </body>
 </html>
