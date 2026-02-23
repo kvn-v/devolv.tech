@@ -390,44 +390,6 @@ body{
   .products{ grid-template-columns: 1fr; }
 }
 
-@media (max-width: 860px){
-  .hero{
-    grid-template-columns: 1fr;
-  }
-  header{
-    align-items: center;
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-  }
-
-  .nav a{
-    padding: 6px 8px;
-    margin-left: 0;
-    margin-right: 10px;
-  }
-}
-
-@media (max-width: 480px){
-  .hero h2{
-    font-size: 2.1rem;
-    line-height: 1.05;
-  }
-  .hero .card{
-    padding: 22px;
-  }
-  .wrap{
-    padding: 14px 16px;
-  }
-}
-@media (max-width: 480px){
-  header img{
-    width: 165px; /* or 160 */
-    height: auto;
-  }
-}
-
 @media (max-width: 480px){
   .product-footer{
     flex-direction: column;
@@ -486,102 +448,31 @@ body{
   .products{ scrollbar-width:none; }
 }
 
-
 @media (max-width: 860px){
   .hero{
     grid-template-columns: 1fr;
+    position: relative;
+    overflow: hidden; /* prevents page-wide horizontal */
   }
 
-  /* gives that layered/peek feel */
+  /* layered/peek */
   .hero .card.subtle{
     margin-top: -10px;
   }
-}
 
-@media (max-width: 860px){
-  .hero{
-    position: relative;
-    overflow: hidden;          /* keeps animation inside, prevents page swipe */
-  }
-
+  /* baseline centered */
   .hero .card{
-    transform: translateX(0);  /* start centered */
+    transform: translate3d(0,0,0);
     will-change: transform;
   }
 }
 
-@media (max-width: 860px){
-  .hero { position: relative; overflow: hidden; }
-  .hero .card{
-    transform: translate3d(0,0,0);   /* force centered baseline */
-    will-change: transform;
-  }
-}
+
     </style>
 
     
     
 </head>
-<!-- 
-<script>
-  (function () {
-    const mq = window.matchMedia("(max-width: 860px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!mq.matches || reduce.matches) return;
-  
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-  
-    const cards = hero.querySelectorAll(".card");
-    if (cards.length < 2) return;
-  
-    const first = cards[0];
-    const second = cards[1];
-  
-    // make it obvious on mobile
-    first.style.willChange = "transform";
-    second.style.willChange = "transform";
-  
-    let raf = null;
-  
-    function update() {
-      raf = null;
-  
-      const rect = hero.getBoundingClientRect();
-      const vh = window.innerHeight || 800;
-  
-      // progress: 0 when hero top is at bottom of screen,
-      //          1 when hero is mostly past the top
-      const start = vh * 0.85;
-      const end   = vh * 0.20;
-      const t = (start - rect.top) / (start - end);
-      const p = Math.max(0, Math.min(1, t));
-  
-      // ease
-      const ease = p * (2 - p);
-  
-      const move = ease * 46;   // <-- bump this up/down for vibe (px)
-      const tilt = ease * 2.5;  // slight rotation (deg)
-  
-      first.style.transform  = `translateX(${move}px) rotate(${tilt}deg)`;
-      second.style.transform = `translateX(${-move}px) rotate(${-tilt}deg)`;
-    }
-  
-    function onScroll() {
-      if (raf) return;
-      raf = requestAnimationFrame(update);
-    }
-  
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", update);
-    update();
-  })();
-  </script> -->
-
-
-
-
-
 <body>
   <div class="wrap">
     <header>
@@ -874,8 +765,6 @@ body{
     const first = cards[0];
     const second = cards[1];
   
-    first.style.transform = "translate3d(0,0,0)";
-    second.style.transform = "translate3d(0,0,0)";
     first.style.willChange = "transform";
     second.style.willChange = "transform";
   
@@ -883,13 +772,16 @@ body{
     let heroH = 1;
     let raf = null;
   
-    // ✅ baseline prevents "page load" / address-bar scroll from animating
-    let baseY = window.scrollY;
-  
     const clamp01 = (n) => Math.max(0, Math.min(1, n));
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   
+    function setCentered() {
+      first.style.transform = "translate3d(0,0,0)";
+      second.style.transform = "translate3d(0,0,0)";
+    }
+  
     function measure() {
+      // measure using current layout
       heroTop = hero.getBoundingClientRect().top + window.scrollY;
       heroH = hero.offsetHeight || 1;
     }
@@ -897,18 +789,21 @@ body{
     function update() {
       raf = null;
   
-      // only count scroll AFTER baseline
-      const y = Math.max(0, window.scrollY - baseY);
+      const y = window.scrollY;
   
-      // convert heroTop into the same "baseline space"
-      const heroTopRel = heroTop - baseY;
+      // KEY: never let “load/layout weirdness” push cards offscreen at top
+      if (y <= 0) {
+        setCentered();
+        return;
+      }
   
-      const start = heroTopRel + 20;
-      const end   = heroTopRel + heroH * 0.60;
+      // start once hero is entering view, finish around mid-hero
+      const start = heroTop - window.innerHeight * 0.10;
+      const end   = heroTop + heroH * 0.60;
   
       const p = easeOutCubic(clamp01((y - start) / (end - start)));
-      const off = (window.innerWidth || 390) * 0.55;
   
+      const off = (window.innerWidth || 390) * 0.55; // how far offscreen
       first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
       second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
     }
@@ -919,23 +814,24 @@ body{
     }
   
     function refresh() {
-      // re-lock baseline once after load settles
-      baseY = window.scrollY;
       measure();
       update();
     }
   
-    measure();
-    update();
+    // Start centered immediately
+    setCentered();
+  
+    // Measure once layout is real
+    window.addEventListener("load", () => {
+      // extra RAFs help Safari settle fonts/layout
+      requestAnimationFrame(() => {
+        requestAnimationFrame(refresh);
+      });
+    });
   
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", refresh);
-    window.addEventListener("load", refresh);
-  
-    // keep ONE settle refresh (don’t spam timeouts)
-    setTimeout(refresh, 250);
   })();
   </script>
-
 </body>
 </html>
