@@ -894,22 +894,20 @@ body{
     }
   
     function update(){
-      raf = null;
-  
-      const y = window.scrollY;
-  
-      // Start once hero is just entering; finish around mid-hero
-      const start = heroTop - window.innerHeight * 0.10;
-      const end   = heroTop + heroH * 0.60;
-  
-      const p = easeOutCubic(clamp01((y - start) / (end - start)));
-  
-      const off = (window.innerWidth || 390) * 0.55;
-  
-      first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
-      second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
-    }
-  
+  raf = null;
+
+  const y = window.scrollY;
+
+  const start = heroTop + 20;        // <-- key fix
+  const end   = heroTop + heroH * 0.60;
+
+  const p = easeOutCubic(clamp01((y - start) / (end - start)));
+
+  const off = (window.innerWidth || 390) * 0.55;
+
+  first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
+  second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
+}
     function onScroll(){
       if (raf) return;
       raf = requestAnimationFrame(update);
@@ -930,6 +928,6 @@ body{
     setTimeout(refresh, 400);
   })();
   </script>
-  
+
 </body>
 </html>
