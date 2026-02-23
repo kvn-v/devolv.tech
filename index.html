@@ -509,6 +509,14 @@ body{
     will-change: transform;
   }
 }
+
+@media (max-width: 860px){
+  .hero { position: relative; overflow: hidden; }
+  .hero .card{
+    transform: translate3d(0,0,0);   /* force centered baseline */
+    will-change: transform;
+  }
+}
     </style>
 
     
@@ -852,65 +860,76 @@ body{
   </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  (() => {
     const mq = window.matchMedia("(max-width: 860px)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!mq.matches || reduce.matches) return;
-
+  
     const hero = document.querySelector(".hero");
     if (!hero) return;
-
+  
     const cards = hero.querySelectorAll(".card");
     if (cards.length < 2) return;
-
+  
     const first = cards[0];
     const second = cards[1];
-
+  
+    // Hard baseline: start centered always
+    first.style.transform = "translate3d(0,0,0)";
+    second.style.transform = "translate3d(0,0,0)";
+    first.style.willChange = "transform";
+    second.style.willChange = "transform";
+  
     let heroTop = 0;
-    let heroH = 0;
+    let heroH = 1;
     let raf = null;
-
-    function clamp01(n){ return Math.max(0, Math.min(1, n)); }
-    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
-
+  
+    const clamp01 = (n) => Math.max(0, Math.min(1, n));
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  
     function measure(){
-      // absolute position in document (NOT affected by iOS bounce)
+      // absolute doc position (stable vs bounce)
       heroTop = hero.getBoundingClientRect().top + window.scrollY;
       heroH = hero.offsetHeight || 1;
     }
-
+  
     function update(){
       raf = null;
-
-      // scrollY does NOT go negative during iOS rubber-band
+  
       const y = window.scrollY;
-
-      // start anim shortly after hero enters view, finish before it leaves
-      const start = heroTop - window.innerHeight * 0.05;
-      const end   = heroTop + heroH * 0.65;
-
-      const raw = (y - start) / (end - start);
-      const p = easeOutCubic(clamp01(raw));
-
-      const off = window.innerWidth * 0.55; // how far cards slide out
-      first.style.transform  = `translateX(${p * off}px)`;
-      second.style.transform = `translateX(${-p * off}px)`;
+  
+      // Start once hero is just entering; finish around mid-hero
+      const start = heroTop - window.innerHeight * 0.10;
+      const end   = heroTop + heroH * 0.60;
+  
+      const p = easeOutCubic(clamp01((y - start) / (end - start)));
+  
+      const off = (window.innerWidth || 390) * 0.55;
+  
+      first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
+      second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
     }
-
+  
     function onScroll(){
       if (raf) return;
       raf = requestAnimationFrame(update);
     }
-
-    measure();
-    update();
-
+  
+    function refresh(){
+      measure();
+      update();
+    }
+  
+    refresh();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => { measure(); update(); });
-    // if fonts/images change layout after load
-    window.addEventListener("load", () => { measure(); update(); });
-  });
-</script>
-
+    window.addEventListener("resize", refresh);
+  
+    // Re-measure after layout settles (images/fonts)
+    window.addEventListener("load", refresh);
+    setTimeout(refresh, 120);
+    setTimeout(refresh, 400);
+  })();
+  </script>
+  
 </body>
 </html>
