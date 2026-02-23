@@ -874,7 +874,6 @@ body{
     const first = cards[0];
     const second = cards[1];
   
-    // Hard baseline: start centered always
     first.style.transform = "translate3d(0,0,0)";
     second.style.transform = "translate3d(0,0,0)";
     first.style.willChange = "transform";
@@ -884,48 +883,57 @@ body{
     let heroH = 1;
     let raf = null;
   
+    // ✅ baseline prevents "page load" / address-bar scroll from animating
+    let baseY = window.scrollY;
+  
     const clamp01 = (n) => Math.max(0, Math.min(1, n));
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   
-    function measure(){
-      // absolute doc position (stable vs bounce)
+    function measure() {
       heroTop = hero.getBoundingClientRect().top + window.scrollY;
       heroH = hero.offsetHeight || 1;
     }
   
-    function update(){
-  raf = null;
-
-  const y = window.scrollY;
-
-  const start = heroTop + 20;        // <-- key fix
-  const end   = heroTop + heroH * 0.60;
-
-  const p = easeOutCubic(clamp01((y - start) / (end - start)));
-
-  const off = (window.innerWidth || 390) * 0.55;
-
-  first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
-  second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
-}
-    function onScroll(){
+    function update() {
+      raf = null;
+  
+      // only count scroll AFTER baseline
+      const y = Math.max(0, window.scrollY - baseY);
+  
+      // convert heroTop into the same "baseline space"
+      const heroTopRel = heroTop - baseY;
+  
+      const start = heroTopRel + 20;
+      const end   = heroTopRel + heroH * 0.60;
+  
+      const p = easeOutCubic(clamp01((y - start) / (end - start)));
+      const off = (window.innerWidth || 390) * 0.55;
+  
+      first.style.transform  = `translate3d(${ p * off }px, 0, 0)`;
+      second.style.transform = `translate3d(${-p * off }px, 0, 0)`;
+    }
+  
+    function onScroll() {
       if (raf) return;
       raf = requestAnimationFrame(update);
     }
   
-    function refresh(){
+    function refresh() {
+      // re-lock baseline once after load settles
+      baseY = window.scrollY;
       measure();
       update();
     }
   
-    refresh();
+    measure();
+    update();
+  
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", refresh);
-  
-    // Re-measure after layout settles (images/fonts)
     window.addEventListener("load", refresh);
-    setTimeout(refresh, 120);
-    setTimeout(refresh, 400);
+  
+    // keep ONE settle refresh (don’t spam timeouts)
+    setTimeout(refresh, 250);
   })();
   </script>
 
