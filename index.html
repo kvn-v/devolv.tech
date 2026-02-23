@@ -514,7 +514,7 @@ body{
     
     
 </head>
-
+<!-- 
 <script>
   (function () {
     const mq = window.matchMedia("(max-width: 860px)");
@@ -568,7 +568,7 @@ body{
     window.addEventListener("resize", update);
     update();
   })();
-  </script>
+  </script> -->
 
 
 
@@ -866,40 +866,52 @@ body{
     const first = cards[0];
     const second = cards[1];
   
-    let raf = null;
+    // make sure hero itself clips, not the whole page
+    hero.style.overflow = "hidden";
+    first.style.willChange = "transform";
+    second.style.willChange = "transform";
   
-    function clamp01(n){ return Math.max(0, Math.min(1, n)); }
-    function easeInOut(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
+    let raf = 0;
   
-    function update(){
-      raf = null;
+    const clamp01 = (n) => Math.max(0, Math.min(1, n));
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3); // smooth + natural
+  
+    function update() {
+      raf = 0;
   
       const rect = hero.getBoundingClientRect();
       const vh = window.innerHeight || 800;
   
-      // progress across the hero section:
-      // 0 = hero just entering viewport
-      // 1 = hero leaving viewport
-      const start = vh * 0.90;     // start anim when hero is low in view
-      const end   = vh * 0.15;     // finish when hero is near top
-      const raw = (start - rect.top) / (start - end);
-      const p = easeInOut(clamp01(raw));
+      /**
+       * Animate while hero scrolls through viewport:
+       * p = 0 when hero top is around 70% down the screen
+       * p = 1 when hero top reaches ~10% from top
+       */
+      const start = vh * 0.70;
+      const end   = vh * 0.10;
   
-      // how far to move (dynamic based on viewport width)
-      // ~55% of screen width feels like "off-screen"
-      const off = (window.innerWidth || 390) * 0.55;
+      const raw = (start - rect.top) / (start - end);
+      const p = easeOut(clamp01(raw));
+  
+      // move amount: enough to slide fully off screen
+      const off = (window.innerWidth || 390) * 0.65;
   
       first.style.transform  = `translateX(${p * off}px)`;
       second.style.transform = `translateX(${-p * off}px)`;
     }
   
-    function onScroll(){
+    function requestUpdate() {
       if (raf) return;
       raf = requestAnimationFrame(update);
     }
   
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", update);
+    // iOS Safari reliability: listen to all of these
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    document.addEventListener("scroll", requestUpdate, { passive: true, capture: true });
+    window.addEventListener("touchmove", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+  
+    // initial paint
     update();
   });
   </script>
