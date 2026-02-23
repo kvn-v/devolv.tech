@@ -856,65 +856,61 @@ body{
     const mq = window.matchMedia("(max-width: 860px)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!mq.matches || reduce.matches) return;
-  
+
     const hero = document.querySelector(".hero");
     if (!hero) return;
-  
+
     const cards = hero.querySelectorAll(".card");
     if (cards.length < 2) return;
-  
+
     const first = cards[0];
     const second = cards[1];
-  
-    // make sure hero itself clips, not the whole page
-    hero.style.overflow = "hidden";
-    first.style.willChange = "transform";
-    second.style.willChange = "transform";
-  
-    let raf = 0;
-  
-    const clamp01 = (n) => Math.max(0, Math.min(1, n));
-    const easeOut = (t) => 1 - Math.pow(1 - t, 3); // smooth + natural
-  
-    function update() {
-      raf = 0;
-  
-      const rect = hero.getBoundingClientRect();
-      const vh = window.innerHeight || 800;
-  
-      /**
-       * Animate while hero scrolls through viewport:
-       * p = 0 when hero top is around 70% down the screen
-       * p = 1 when hero top reaches ~10% from top
-       */
-      const start = vh * 0.70;
-      const end   = vh * 0.10;
-  
-      const raw = (start - rect.top) / (start - end);
-      const p = easeOut(clamp01(raw));
-  
-      // move amount: enough to slide fully off screen
-      const off = (window.innerWidth || 390) * 0.65;
-  
+
+    let heroTop = 0;
+    let heroH = 0;
+    let raf = null;
+
+    function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+
+    function measure(){
+      // absolute position in document (NOT affected by iOS bounce)
+      heroTop = hero.getBoundingClientRect().top + window.scrollY;
+      heroH = hero.offsetHeight || 1;
+    }
+
+    function update(){
+      raf = null;
+
+      // scrollY does NOT go negative during iOS rubber-band
+      const y = window.scrollY;
+
+      // start anim shortly after hero enters view, finish before it leaves
+      const start = heroTop - window.innerHeight * 0.05;
+      const end   = heroTop + heroH * 0.65;
+
+      const raw = (y - start) / (end - start);
+      const p = easeOutCubic(clamp01(raw));
+
+      const off = window.innerWidth * 0.55; // how far cards slide out
       first.style.transform  = `translateX(${p * off}px)`;
       second.style.transform = `translateX(${-p * off}px)`;
     }
-  
-    function requestUpdate() {
+
+    function onScroll(){
       if (raf) return;
       raf = requestAnimationFrame(update);
     }
-  
-    // iOS Safari reliability: listen to all of these
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    document.addEventListener("scroll", requestUpdate, { passive: true, capture: true });
-    window.addEventListener("touchmove", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-  
-    // initial paint
+
+    measure();
     update();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => { measure(); update(); });
+    // if fonts/images change layout after load
+    window.addEventListener("load", () => { measure(); update(); });
   });
-  </script>
+</script>
 
 </body>
 </html>
