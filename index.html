@@ -15,7 +15,7 @@
   <meta name="twitter:card" content="summary" />
 
   <!-- Brand color and PWA niceties (optional) -->
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#0a0a0a" />
 
   <!-- Schema.org Organization -->
   <script type="application/ld+json">
@@ -32,14 +32,15 @@
   <style>
 
     :root{
-  --bg:#0b1220;         /* page base */
-  --bg-soft:#0f172a;    /* darker surfaces */
-  --card: rgba(255,255,255,.06);  /* glass card */
-  --text:#e5e7eb;       /* light text */
-  --muted:#a3b1c6;      /* muted light text */
-  --accent:#3b82f6;     /* blue */
-  --border: rgba(255,255,255,.14);
-  --shadow: 0 12px 30px rgba(0,0,0,.35);
+  --bg:#0a0a0a;         /* matte black page base */
+  --bg-soft:#111111;    /* slightly lifted matte surface */
+  --card: rgba(255,255,255,.04);  /* glass card */
+  --text:#e6e7e9;       /* light text */
+  --muted:#9aa3ad;      /* muted light text */
+  --accent:#22d3ee;     /* cyan */
+  --accent-strong:#06b6d4; /* deeper cyan */
+  --border: rgba(255,255,255,.10);
+  --shadow: 0 12px 30px rgba(0,0,0,.6);
   --radius:16px;
 }
 
@@ -56,8 +57,8 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   background:
-    radial-gradient(900px 600px at 10% -10%, rgba(59,130,246,.35), transparent 60%),
-    radial-gradient(800px 500px at 90% 0%, rgba(59,130,246,.25), transparent 60%),
+    radial-gradient(900px 600px at 10% -10%, rgba(34,211,238,.18), transparent 60%),
+    radial-gradient(800px 500px at 90% 0%, rgba(6,182,212,.12), transparent 60%),
     var(--bg);
   color:var(--text);
   line-height:1.6;
@@ -90,9 +91,9 @@ body{
   border-radius: 10px;
 }
 .nav a:hover{
-  color: var(--text);
-  background: rgba(255,255,255,.6);
-  border: 1px solid var(--border);
+  color: var(--accent);
+  background: rgba(34,211,238,.08);
+  border: 1px solid rgba(34,211,238,.25);
 }
 
     
@@ -176,7 +177,13 @@ body{
     
     .btn.primary{
       background: var(--accent);
-      color:white;
+      color:#0a0a0a;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.15), 0 8px 24px rgba(34,211,238,.12);
+    }
+    .btn.primary:hover{
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
     }
     
     .btn.secondary{
@@ -218,8 +225,8 @@ body{
 
 .card-link:hover .card{
   transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(0,0,0,.10);
-  border-color: rgba(37,99,235,.35);
+  box-shadow: 0 12px 24px rgba(0,0,0,.5);
+  border-color: rgba(34,211,238,.45);
 }
 
     
@@ -278,8 +285,8 @@ body{
 
 .product-link:hover .product-card{
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.10);
-  border-color: rgba(37,99,235,.35);
+  box-shadow: 0 14px 28px rgba(0,0,0,.55);
+  border-color: rgba(34,211,238,.45);
 }
 
 .product-top{
@@ -292,8 +299,8 @@ body{
   width:44px;
   height:44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(37,99,235,.22), rgba(37,99,235,.06));
-  border:1px solid var(--border);
+  background: linear-gradient(135deg, rgba(34,211,238,.22), rgba(6,182,212,.06));
+  border:1px solid rgba(34,211,238,.2);
   display:flex;
   align-items:center;
   justify-content:center;
