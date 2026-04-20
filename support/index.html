@@ -3,63 +3,590 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Support</title>
+
+  <title>Support — Devolv</title>
+  <meta name="description" content="Devolv support portal — contact, FAQs, and product help for ZoneMobile and Blackjack With Strategy." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Support — Devolv" />
+  <meta property="og:description" content="Contact, FAQs, and product help for Devolv apps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://devolv.tech/support" />
+  <meta name="twitter:card" content="summary" />
+
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <style>
     :root{
-      --bg: #0f0f10;
-      --text: #e6e6e6;
-      --muted: #b5b5b5;
-      --link: #6aa9ff;
+      --bg:#0a0a0a;
+      --bg-soft:#111111;
+      --card: rgba(255,255,255,.04);
+      --text:#e6e7e9;
+      --muted:#9aa3ad;
+      --accent:#22d3ee;
+      --accent-strong:#06b6d4;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 12px 30px rgba(0,0,0,.6);
+      --radius:16px;
     }
-    html,body{height:100%}
+
+    html, body{
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body{
       margin:0;
-      background:var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(900px 600px at 10% -10%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(800px 500px at 90% 0%, rgba(6,182,212,.12), transparent 60%),
+        var(--bg);
       color:var(--text);
-      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+      line-height:1.6;
     }
+
     .wrap{
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 64px 24px 120px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:16px 20px;
+      overflow-x: clip;
     }
-    h1{
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1.15;
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 12px 0 18px 0;
+      margin-bottom: 10px;
+    }
+
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      margin-left:18px;
+      font-size:.95rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+    .nav a:hover{
+      color: var(--accent);
+      background: rgba(34,211,238,.08);
+      border: 1px solid rgba(34,211,238,.25);
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:26px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-card{
+      padding: 30px;
+    }
+
+    .hero-card h1{
+      font-size: clamp(2.0rem, 3.2vw, 2.8rem);
+      line-height:1.1;
+      margin: 10px 0 14px 0;
+      letter-spacing:-0.03em;
+    }
+
+    .hero-card p{
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .badges{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:0 0 18px 0;
+    }
+
+    .badge{
+      font-size:.8rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background: rgba(255,255,255,.06);
+    }
+
+    .cta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .btn.primary{
+      background: var(--accent);
+      color:#0a0a0a;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.15), 0 8px 24px rgba(34,211,238,.12);
+    }
+    .btn.primary:hover{
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid var(--border);
+    }
+    .btn.secondary:hover{
+      background: rgba(255,255,255,.10);
+    }
+
+    .cols{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+      margin-top:26px;
+    }
+    @media (max-width: 960px){ .cols{ grid-template-columns:1fr 1fr; } }
+    @media (max-width: 640px){ .cols{ grid-template-columns:1fr; } }
+
+    .mini h3{
+      margin: 0 0 8px 0;
+      font-size:1.05rem;
+    }
+
+    .muted{ color:var(--muted); }
+
+    .section-title{
+      font-size: 1.4rem;
+      margin: 0 0 14px 0;
       letter-spacing: -0.02em;
-      margin: 0 0 28px;
-      color: #dedede;
-      font-weight: 800;
     }
-    p{margin: 0 0 14px; color: var(--muted)}
-    .row{display:flex; gap:.6rem; align-items:flex-start; margin: 10px 0}
-    .row .icon{font-size: 1.05rem; width: 1.4rem; text-align:center}
-    a{color: var(--link); text-decoration: none}
-    a:hover{text-decoration: underline}
-    .updated{margin-top: 18px; color: var(--muted)}
+
+    .section-sub{
+      margin: 0 0 22px 0;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    /* Products grid (reused from landing page) */
+    .products{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:20px;
+    }
+
+    .product-card{
+      height: 100%;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      padding:22px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(0,0,0,.55);
+      border-color: rgba(34,211,238,.45);
+    }
+
+    .product-top{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .product-icon{
+      width:44px;
+      height:44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(34,211,238,.22), rgba(6,182,212,.06));
+      border:1px solid rgba(34,211,238,.2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+    }
+
+    .product-icon img{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .product-name{
+      margin:0;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    .product-meta{
+      margin:0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+
+    .product-links{
+      margin-top: auto;
+      display:flex;
+      flex-direction: column;
+      gap:10px;
+      padding-top: 6px;
+    }
+
+    .product-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+
+    .pill{
+      font-size:.78rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .store-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight: 650;
+      font-size: .92rem;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .store-btn:hover{ color: var(--accent-strong); }
+
+    .store-btn svg{
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    /* FAQ */
+    .faq{ margin-top: 18px; }
+    .faq details{
+      border-top: 1px solid var(--border);
+      padding: 14px 2px;
+    }
+    .faq details:first-of-type{ border-top: none; padding-top: 4px; }
+    .faq summary{
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+    }
+    .faq summary::-webkit-details-marker{ display: none; }
+    .faq summary::after{
+      content: "+";
+      color: var(--accent);
+      font-size: 1.3rem;
+      line-height: 1;
+      transition: transform .2s ease;
+    }
+    .faq details[open] summary::after{
+      content: "–";
+    }
+    .faq details > *:not(summary){
+      margin-top: 10px;
+      color: var(--muted);
+    }
+    .faq a{ color: var(--accent); text-decoration: none; }
+    .faq a:hover{ text-decoration: underline; }
+
+    footer{
+      margin-top:56px;
+      padding-top:20px;
+      border-top:1px solid var(--border);
+      font-size:.92rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    @media (max-width: 640px){
+      .products{ grid-template-columns: 1fr; }
+    }
+
+    /* Mobile swipe carousel for product cards — matches landing page */
+    @media (max-width: 640px){
+      .products{
+        display:flex;
+        overflow-x:auto;
+        gap:16px;
+        padding: 6px 16px 18px;
+        margin: 0 -16px;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .products > *{
+        flex: 0 0 80%;
+        scroll-snap-align: start;
+      }
+      .products::-webkit-scrollbar{ display:none; }
+      .products{ scrollbar-width:none; }
+    }
+
+    @media (hover: none) and (pointer: coarse){
+      .product-card:hover{
+        transform: none !important;
+        box-shadow: var(--shadow) !important;
+        border-color: var(--border) !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>Support</h1>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">
+        <div aria-hidden="true">
+          <img src="/assets/Image.png" alt="Devolv" width="220">
+        </div>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="mailto:support@devolv.tech">Contact</a>
+      </nav>
+    </header>
 
-    <p>Need help? We’re here for you.</p>
-
-    <div class="row">
-      <div class="icon">📧</div>
-      <div>
-        <strong>Email:</strong>
-        <a href="mailto:support@devolv.tech">support@devolv.tech</a>
+    <section>
+      <div class="card hero-card">
+        <div class="badges">
+          <span class="badge">Email support</span>
+          <span class="badge">Typical response &lt; 2 business days</span>
+        </div>
+        <h1>How can we help?</h1>
+        <p>
+          Reach out with questions, bug reports, or feature requests for any Devolv app.
+          For faster routing, use the product-specific links below — they'll pre-fill your email subject.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:support@devolv.tech">Email Support</a>
+          <a class="btn secondary" href="/">Back to Home</a>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="icon">📄</div>
-      <div><strong>FAQ:</strong> Coming soon (email us for now)</div>
-    </div>
+      <div class="cols">
+        <div class="card mini">
+          <h3>Email</h3>
+          <p class="muted"><a href="mailto:support@devolv.tech" class="muted">support@devolv.tech</a></p>
+        </div>
+        <div class="card mini">
+          <h3>Response time</h3>
+          <p class="muted">Under 2 business days, US hours.</p>
+        </div>
+        <div class="card mini">
+          <h3>Phone</h3>
+          <p class="muted">We don't offer phone support — email is the fastest way to reach us.</p>
+        </div>
+      </div>
+    </section>
 
-    <p class="updated">Last updated: August 2025</p>
-  </main>
+    <section style="margin-top:44px">
+      <h2 class="section-title">Product help</h2>
+      <p class="section-sub">Pick a product for targeted support. Emails go to the same inbox with the subject pre-filled so we can route them faster.</p>
+
+      <div class="products">
+
+        <!-- ZoneMobile -->
+        <div class="product-card">
+          <div class="product-top">
+            <div class="product-icon" aria-hidden="true">
+              <img src="/assets/ZMicon2.png" alt="" />
+            </div>
+            <div>
+              <h3 class="product-name">ZoneMobile</h3>
+              <p class="product-meta">Time tracking that stays simple.</p>
+            </div>
+          </div>
+
+          <p class="product-meta">
+            For account issues, sync problems, or feature requests — email us with your device model and app version.
+          </p>
+
+          <div class="product-links">
+            <div class="product-row">
+              <span class="pill">iOS</span>
+              <span class="pill">Android</span>
+              <a class="store-btn" href="mailto:support@devolv.tech?subject=ZoneMobile%20support">
+                Email about ZoneMobile
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+            <div class="product-row">
+              <a class="store-btn" href="https://apps.apple.com/us/app/zone-mobile/id6759078843" target="_blank" rel="noopener noreferrer">
+                App Store listing
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+              <a class="store-btn" href="https://play.google.com/store/apps/details?id=tech.devolv.zonemobile" target="_blank" rel="noopener noreferrer">
+                Play Store listing
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blackjack With Strategy -->
+        <div class="product-card">
+          <div class="product-top">
+            <div class="product-icon" aria-hidden="true">
+              <img src="/assets/120.png" alt="" />
+            </div>
+            <div>
+              <h3 class="product-name">Blackjack With Strategy</h3>
+              <p class="product-meta">Blackjack training and decision practice.</p>
+            </div>
+          </div>
+
+          <p class="product-meta">
+            For gameplay questions, strategy-chart questions, or bugs — include your iOS version and app version in the email.
+          </p>
+
+          <div class="product-links">
+            <div class="product-row">
+              <span class="pill">iOS</span>
+              <a class="store-btn" href="mailto:support@devolv.tech?subject=Blackjack%20With%20Strategy%20support">
+                Email about Blackjack
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+            <div class="product-row">
+              <a class="store-btn" href="https://apps.apple.com/us/app/blackjack-with-strategy/id6751148964" target="_blank" rel="noopener noreferrer">
+                App Store listing
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+              <a class="store-btn" href="/how-to-play">
+                How to play
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="margin-top:44px">
+      <h2 class="section-title">Frequently asked</h2>
+      <div class="card faq">
+
+        <details>
+          <summary>How do I request a refund?</summary>
+          <p>Refunds are handled by the store the app was purchased from, not by Devolv directly.</p>
+          <p>
+            For iOS, request a refund through Apple:
+            <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a>.
+            For Android, request through Google Play:
+            <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google Play refund help</a>.
+          </p>
+        </details>
+
+        <details>
+          <summary>I found a bug — what should I include in my email?</summary>
+          <p>To help us reproduce the issue quickly, please include:</p>
+          <p>
+            • Device model (e.g. iPhone 15 Pro, Pixel 8)<br>
+            • OS version (e.g. iOS 18.2, Android 14)<br>
+            • App version (shown in the app's settings screen)<br>
+            • Steps to reproduce the bug<br>
+            • A screenshot or screen recording if possible
+          </p>
+        </details>
+
+        <details>
+          <summary>Can I request a feature?</summary>
+          <p>Yes — we read every email. Send your idea to <a href="mailto:support@devolv.tech">support@devolv.tech</a> with the product name in the subject line. We can't promise every suggestion ships, but feature requests directly shape our roadmap.</p>
+        </details>
+
+        <details>
+          <summary>Where can I find your privacy policy?</summary>
+          <p>Our privacy policy is available at <a href="/privacy">devolv.tech/privacy</a>.</p>
+        </details>
+
+        <details>
+          <summary>How long until I get a reply?</summary>
+          <p>Typical response time is under 2 business days during US hours. Complex bug reports may take longer while we reproduce and diagnose the issue — we'll keep you posted.</p>
+        </details>
+
+        <details>
+          <summary>Do you offer phone support?</summary>
+          <p>No — email is the only support channel. This lets us keep a written record of every issue and ship fixes faster.</p>
+        </details>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="legal">© <span id="year"></span> Devolv LLC. All rights reserved.</div>
+      <div>Registered software development company • USA</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
