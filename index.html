@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://devolv.tech/" />
   <meta name="twitter:card" content="summary" />
 
-  <!-- Brand color and PWA niceties (optional) -->
+  <!-- optional -->
   <meta name="theme-color" content="#0a0a0a" />
 
   <!-- Security -->
@@ -51,11 +51,11 @@
 
 html, body{
   width: 100%;
-  overflow-x: hidden;     /* prevents page-wide horizontal swipe */
+  overflow-x: hidden;     /* prevents page wide horizontal swipe */
 }
 
 .wrap{
-  overflow-x: clip;       /* modern + cleaner than hidden */
+  overflow-x: clip;       
 }
 
 body{
@@ -143,7 +143,7 @@ body{
   will-change: transform;
 } */
 
-/* make the right card feel “lighter” */
+/* make the right card feel lighter */
 /*  */
 
     
@@ -808,11 +808,11 @@ body{
 
   const totalRange = baseEnd - baseStart;
 
-  // --- CARD 1 WINDOW (slight delay) ---
+  // --- CARD 1 WINDOW slight delay ---
   const start1 = baseStart + totalRange * 0.15;   // 15% delay
   const end1   = baseEnd;
 
-  // --- CARD 2 WINDOW (bigger delay) ---
+  // --- CARD 2 WINDOW bigger delay ---
   const start2 = baseStart + totalRange * 0.80;   // 30% delay
   const end2   = baseEnd;
 
