@@ -90,6 +90,32 @@
       backdrop-filter: blur(10px);
     }
 
+    .card-link{
+      text-decoration:none;
+      color:inherit;
+      display:block;
+    }
+    .card-link .card{
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      cursor: pointer;
+      height: 100%;
+    }
+    .card-link:hover .card{
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,.5);
+      border-color: rgba(34,211,238,.45);
+    }
+    .card-link:hover .store-btn{
+      color: var(--accent-strong);
+    }
+    @media (hover: none) and (pointer: coarse){
+      .card-link:hover .card{
+        transform: none !important;
+        box-shadow: var(--shadow) !important;
+        border-color: var(--border) !important;
+      }
+    }
+
     .hero-card{
       padding: 30px;
     }
@@ -421,20 +447,18 @@
           <p class="muted">Under 2 business days, US hours.</p>
         </div>
 
-        <a 
-  href="mailto:support@devolv.tech?subject=Product build support" 
-  class="card mini"
->
-  <h3>Product request</h3>
-
-  <span class="store-btn">
-    Build a product
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </span>
-</a>
+        <a class="card-link" href="mailto:support@devolv.tech?subject=Product%20build%20support" aria-label="Email us about building a product">
+          <div class="card mini">
+            <h3>Product request</h3>
+            <span class="store-btn" aria-hidden="true">
+              Build a product
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+        </a>
       </div>
     </section>
 
